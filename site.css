@@ -1,0 +1,7 @@
+.indexValueEditBox {
+    display: flex;
+    align-items: center;
+}
+.indexValueEditBox >span{
+    margin-left: 10px;
+}
