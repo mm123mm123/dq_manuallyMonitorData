@@ -1,0 +1,24 @@
+.indexValueEditBox {
+    display: flex;
+    align-items: center;
+}
+
+.indexValueEditBox > span {
+    margin-left: 10px;
+}
+
+.layui-form-label {
+    width: 90px;
+}
+
+.layui-form-item > .indexValueEditBox {
+    width: 500px;
+}
+
+.layui-form-item > .no-unit-input {
+    width: 454px
+}
+
+.siteTable th {
+    text-align: right;
+}

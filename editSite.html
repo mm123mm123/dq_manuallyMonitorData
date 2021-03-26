@@ -8,14 +8,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="node_modules/layui-src/src/css/layui.css">
     <link rel="stylesheet" href="/global.css">
-    <link rel="stylesheet" href="/site.css">
+    <link rel="stylesheet" href="/editSite.css">
 </head>
 <body>
 <table>
-    <table class="layui-table" lay-filter="siteTable" lay-skin="nob">
+    <table class="layui-table siteTable" lay-filter="siteTable" lay-skin="nob">
         <colgroup>
-            <col width="50">
-            <col width="200">
+            <col width="20">
+            <col width="800">
         </colgroup>
         <tbody>
         <tr>
@@ -42,13 +42,13 @@
 <form class="layui-form" action="">
     <div class="layui-form-item">
         <label class="layui-form-label">数据频率</label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline no-unit-input">
             <div id="frequency" name="frequency" class="xm-select-demo"></div>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">数据监测时间</label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline no-unit-input">
             <input type="text" class="layui-input" id="createTime" placeholder="请选择">
         </div>
     </div>
@@ -59,7 +59,7 @@
             <div class="layui-row">
                 <div class="layui-form-item">
                     <label class="layui-form-label">AQI指标值</label>
-                    <div class="layui-input-inline">
+                    <div class="layui-input-inline no-unit-input">
                         <input type="text" class="layui-input">
                     </div>
                 </div>
@@ -67,10 +67,11 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">详情</label>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
-            <textarea id="demo" name="noticeContent" style="display: none;"></textarea>
+            <textarea name="desc" placeholder="请输入内容" class="layui-textarea"
+                      style="width: 800px;height: 50px;resize:none"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
@@ -105,10 +106,8 @@
         return airIndexValueEditBox
     }
 
-    layui.use(['layedit', 'form', 'element', "layer", "table", "laydate"], function () {
-        let layedit = layui.layedit;
+    layui.use(['form', 'element', "layer", "table", "laydate"], function () {
         let form = layui.form
-        let layeditIndex = layedit.build('demo');
         let $ = layui.$;
         let apiPath = "http://localhost/api";
         let layer = layui.layer;
