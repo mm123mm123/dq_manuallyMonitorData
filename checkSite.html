@@ -6,64 +6,56 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="./checkSite.css">
     <link rel="stylesheet" href="node_modules/layui-src/src/css/layui.css">
 </head>
 <body>
-<table class="layui-table" lay-filter="annoTable">
-    <colgroup>
-        <col width="50">
-        <col width="200">
-    </colgroup>
-    <tbody>
-    <tr>
-        <th>企业标题</th>
-        <td>
-            <div id="noticeTitle"></div>
-        </td>
-    </tr>
-    <tr>
-        <th>来源</th>
-        <td>
-            <div id="source"></div>
-        </td>
-    </tr>
-    <tr>
-        <th>添加时间</th>
-        <td>
-            <div id="createTime"></div>
-        </td>
-    </tr>
-    <tr>
-        <th>详情</th>
-        <td>
-            <div id="noticeContent"></div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div id="checkSiteTable">
+    <div class="layui-col-md4 left">
+    </div>
+    <div class="layui-col-md4 right">
+    </div>
+</div>
 <script src="node_modules/layui-src/src/layui.js"></script>
 <script src="node_modules/layui-src/src/lay/modules/jquery.js"></script>
 <script>
     let $ = layui.$;
     let paramList = window.location.search.substring(1).split('=')
     let annoId = paramList[paramList.indexOf('id') + 1]
+    let siteParamArray = ['站点位置名称', '站点类型', '数据频率', '设备序列号', '数据监测时间']
+    let airIndexValueArray = ['PM10', 'PM2.5', 'CO', 'SO2', 'TSP', 'VOCS', 'NOX', 'O3', 'AQI']
+    let recordData = ['创建时间', '更新时间', '备注', '创建人', '更新人']
+    let leftSiteTableItemArray = ""
+    let rightSiteTableItemArray = ""
 
-    layui.use(['table', 'element'], function () {
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            contentType: "application/json;charset=utf-8",
-            url: top.apiPath + "/user/impCompanyNotice/get/" + annoId,
-            headers: {"access_token": localStorage.getItem('token')},
-            success: function (result) {
-                $('#noticeTitle').text(result.data['noticeTitle'])
-                $('#source').text(result.data['source'])
-                $('#createTime').text(result.data['createTime'])
-                $('#noticeContent').html(result.data['noticeContent'])
-            }
-        });
+    function createRowAndInsertTableArray(headerArray, rowHTMLString) {
+        if (headerArray.length % 2 === 0) {
+            let leftSideArray = headerArray.slice(0, headerArray.length / 2);
+            leftSideArray.forEach((header) => {
+                leftSiteTableItemArray += "<div class=\"layui-row\">\n" + header + "</div>"
+            })
+            let rightSideArray = headerArray.slice(headerArray.length / 2);
+            rightSideArray.forEach((header) => {
+                rightSiteTableItemArray += "<div class=\"layui-row\">\n" + header + "</div>"
+            })
+        } else {
+            let leftSideArray = headerArray.slice(0, headerArray.length / 2 + 1);
+            leftSideArray.forEach((header) => {
+                leftSiteTableItemArray += "<div class=\"layui-row\">\n" + header + "</div>"
+            })
+            let rightSideArray = headerArray.slice(headerArray.length / 2 + 1);
+            rightSideArray.forEach((header) => {
+                rightSiteTableItemArray += "<div class=\"layui-row\">\n" + header + "</div>"
+            })
+            rightSiteTableItemArray += "<div class=\"layui-row blank-line\"></div>"
+        }
+    }
 
-    })
+    createRowAndInsertTableArray(siteParamArray)
+    createRowAndInsertTableArray(airIndexValueArray)
+    createRowAndInsertTableArray(recordData)
+    $('.left').append(leftSiteTableItemArray)
+    $('.right').append(rightSiteTableItemArray)
 </script>
 </body>
 </html>
